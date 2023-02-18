@@ -1,4 +1,3 @@
-import axios from "axios";
 const searchApi = axios.create({
     baseURL: 'https://api.mapbox.com/geocoding/v5/mapbox.places',
     params: {
@@ -13,6 +12,17 @@ const searchApi = axios.create({
 
 const fetch = async () => {
     const res = await searchApi.get(`/$Tecnologico.json`);
-    console.log(res.data);
+    console.log(res.data.features);
+    const dataContainer = document.querySelector('#dataContainer');
+    dataContainer.textContent = ''
+    res.data.features.map((item) => {
+        dataContainer.innerHTML += `
+    <div class="dataText">
+    ${item.place_name}
+    <br></br>
+    </div>
+    ` ;
+
+    })
 }
 fetch();
